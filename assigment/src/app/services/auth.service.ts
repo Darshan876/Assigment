@@ -62,7 +62,7 @@ set_profile(formData: any) {
   public create_post(data:any){
 
     const headers: HttpHeaders = new HttpHeaders({
-      'authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk5LCJpYXQiOjE2NTU4OTE5ODR9.mDUQPLnzb-71t-HxN_CfvLoqnZBof5ctIElDi7fFOwo'
+      'authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk5LCJpYXQiOjE2NTU4OTE5ODR9.mDUQPLnzb-71t-HxN_CfvLoqnZBof5ctIElDi7fFOwo'
     });
 
 
