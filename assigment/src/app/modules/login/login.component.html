@@ -1,0 +1,160 @@
+<!-- <section class="h-100 bg-dark">
+  <div class="container py-5 h-100" >
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <form [formGroup]="login">
+        <div class="card card-registration my-4">
+
+          <div class="row g-0">
+            <div class="col-xl-6 d-none d-xl-block">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                alt="Sample photo" class="img-fluid"
+                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+            </div>
+            <div class="col-xl-6">
+              <div class="card-body p-md-5 text-black"  >
+                <h3 class="mb-5 text-uppercase">Welcome to the Starclusive</h3>
+                <p>Please Provide the following details to login into system.</p>
+                <div  class="form-outline mb-4" >
+                  <input type="text"  id="form3Example8"class="form-control form-control-lg" formControlName="email" placeholder="EmailId/Password"/>
+                  <div
+                  *ngIf="
+                    login.get('email')?.hasError('required') &&
+                    login.get('email')?.touched
+                  "
+                  style="color: red; line-height: 1; height: 7px; margin-top: 20px"
+                >
+                  Email id is required
+                </div>
+                </div>
+                <div   class="form-outline mb-4" >
+                  <input type="text" id="form3Example8"  class="form-control form-control-lg"  formControlName="password" placeholder="Password"/>
+                  <div
+                  *ngIf="
+                    login.get('password')?.hasError('required') &&
+                    login.get('password')?.touched
+                  "
+                  style="color: red; line-height: 1; height: 7px"
+                >
+                  Password is required
+                </div>
+                <div
+                  *ngIf="
+                    login.get('password')?.hasError('minlength') &&
+                    login.get('password')?.touched
+                  "
+                  style="color: red; line-height: 1; height: 7px"
+                >
+                  Password length should be greater than 8
+                </div>
+                </div>
+                <div class="d-flex justify-content-end pt-3">
+                  <button type="button" class="btn btn-warning btn-lg ms-2" (click)="signIn()">Submit form</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section> -->
+<div class="logo">
+  <img
+    src="../../assets/star1.jpg"
+    alt="Snow"
+    style="width: 100%"
+    height="650px"
+    alt=""
+  />
+  <button class="btn" (click)="change()">SignIn</button>
+</div>
+<div class="container">
+  <form [formGroup]="login">
+    <div class="main border content main w-75 mx-auto border border-light">
+      <div class="row">
+        <p class="title">Welcome To The Starclusive</p>
+        <p class="text-start" style="color: rgb(8, 8, 8); font-weight: 200">
+          Please provide following details to complete your profile:
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <i class="bi bi-person-circle" style="position: absolute;padding: 15px 12px; color: rgba(166, 94, 234, 0.856);"></i>
+          <!-- <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" > -->
+          <input
+            type="text"
+            placeholder="Email id"
+            class="form-control"
+            formControlName="email"
+            style="text-indent: 30px"
+          />
+          <div
+            *ngIf="
+              login.get('email')?.hasError('required') &&
+              login.get('email')?.touched
+            "
+            style="color: red; line-height: 1; height: 7px; margin-top: 20px"
+          >
+            Email id is required
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <div class="input-icons" style="position: relative">
+            <i class="bi bi-key-fill" style="position: absolute;padding: 15px 12px; color: rgba(166, 94, 234, 0.856);"></i>
+            <input
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+              class="form-control p-3"
+              style="text-indent: 30px"
+            />
+            <div
+              *ngIf="
+                login.get('password')?.hasError('required') &&
+                login.get('password')?.touched
+              "
+              style="color: red; line-height: 1; height: 7px"
+            >
+              Password is required
+            </div>
+            <div
+              *ngIf="
+                login.get('password')?.hasError('minlength') &&
+                login.get('password')?.touched
+              "
+              style="color: red; line-height: 1; height: 7px"
+            >
+              Password length should be greater than 8
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col mt-2" >
+          <input
+          type="text"
+          formControlName="deviceId"
+          placeholder="deviceId"
+          class="form-control p-3"
+          style="text-indent: 30px"
+        />
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col d-flex justify-content-left">
+          <button class="btn" type="submit" id="submit_btn" (click)="signIn()">
+            SignIn
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

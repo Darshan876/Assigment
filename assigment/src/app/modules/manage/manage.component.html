@@ -1,0 +1,291 @@
+<div class="container" style="background-color: #EEEEEE;" >
+  <div class="row" >
+    <div class="col">
+      <div class="card info" style=" cursor: pointer;" (click)="myInfo()">
+        <div class="card-body">
+          <i class="bi bi-person-circle"></i>&nbsp;
+          <a  style="text-decoration:none;" >&nbsp; My information</a>
+        </div>
+      </div>
+    </div>
+    <div class="col md-offset-2">
+      <div class="card info" style="cursor: pointer;">
+        <div class="card-body" (click)="myCard()">
+          <i class="bi bi-credit-card-2-back"></i>&nbsp;
+          <a  style="text-decoration:none;" >&nbsp; Manage Card</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card info" style="cursor: pointer;">
+        <div class="card-body"  (click)="Comingsoon()">
+          <i class="bi bi-bank2"></i>&nbsp;
+          <a  style="text-decoration:none;">&nbsp;Bank Account</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="cursor: pointer;">
+        <div class="card-body info"  (click)="Comingsoon()">
+          <i class="bi bi-gear"></i>&nbsp;
+          <a style="text-decoration:none;">&nbsp;Account Setting </a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="cursor: pointer;">
+        <div class="card-body info"  (click)="Comingsoon()">
+          <i class="bi bi-play-circle-fill"></i>&nbsp;
+          <a style="text-decoration:none;">&nbsp;Subscription</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3" *ngIf="card">
+    <div class="col-4"  *ngFor="let data of test1;let item of test| paginate: { itemsPerPage: 2, currentPage: p }">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          {{item.name}} <label>...</label>
+          <p>****-****-****-1234</p>
+          <p>{{item.exp_month}}/<span>{{item.exp_year}}</span></p>
+          <p height="40" style="right:5px ; margin-bottom: 5px; margin-left: 210px;">{{item.brand}}</p>
+          <img src="" height="40" style="right:5px ; margin-bottom: 5px; margin-left: 210px;">
+        </div>
+      </div>
+    </div>
+    <pagination-controls (pageChange)="p=$event" class="float-right" *ngIf="card"></pagination-controls>
+    <!-- <div class="col-4">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          Bank Of America <label>...</label>
+          <p>****-****-****-1234</p>
+          <p>valid-<span>2026</span></p>
+          <img src="../assets/master.png" height="30" style="right:5px ; margin-bottom: 5px; margin-left: 200px;">
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          Bank Of America <label>...</label>
+          <p>****-****-****-1234</p>
+          <p>valid-<span>2026</span></p>
+          <img src="../assets/visa.png" height="40" style="right:5px ; margin-bottom: 5px; margin-left: 210px;">
+        </div>
+      </div>
+    </div>-->
+  </div>
+
+  <div class="row mt-2" *ngIf="info">
+    <div class="container" style="background-color: white;" >
+      <div>
+        <p>Please provide the following details for Profile in Starclusive</p>
+      </div>
+      <form>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group" style="position: relative">
+              <i class="bi bi-person-circle"
+                style="position: absolute;padding: 7px 10px; color: rgba(166, 94, 234, 0.856);"></i>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name"
+                style="text-indent: 20px"  >
+
+              <i class="bi bi-person-circle"
+                style="position: absolute;padding: 13px 10px; color: rgba(166, 94, 234, 0.856);"></i>
+              <input type="text" class="form-control mt-2"  id="exampleFormControlInput1" placeholder="UserName "
+                style="text-indent: 20px ;">
+                <div class="form-group" style="position: relative">
+                  <i class="bi bi-flag"  style="position: absolute;padding: 7px 10px; color: rgba(166, 94, 234, 0.856);"></i>
+                  <select class="form-control mt-2" id="exampleFormControlSelect1" style="text-indent: 20px">
+                    <option>Country</option>
+                    <option>India</option>
+                    <option>England</option>
+                    <option>Pakistan</option>
+                  </select>
+                </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <i class="bi bi-envelope"
+              style="position: absolute;padding: 7px 12px; color: rgba(166, 94, 234, 0.856);"></i>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email"
+              style="text-indent: 20px">
+              <p></p>
+
+
+            <i class="bi bi-calendar"
+              style="position: absolute;padding: 13px 10px; color: rgba(166, 94, 234, 0.856);"></i>
+            <input type="text" class="form-control mt-2" id="exampleFormControlInput1" placeholder="Date"
+              style="text-indent: 20px">
+
+              <div class="form-group">
+                <i class="bi bi-geo-alt" style="position: absolute;padding: 6px 12px; color: rgba(166, 94, 234, 0.856);"></i>
+                <select class="form-control mt-2" id="exampleFormControlSelect1"  style="text-indent: 20px">
+                  <option>City</option>
+                  <option>Ahmedabad</option>
+                  <option>Palanpur</option>
+                  <option>Deesa</option>
+                </select>
+              </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <i class="bi bi-info-circle" style="position: absolute;padding: 10px 12px; color: rgba(166, 94, 234, 0.856);"></i>
+            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="SHORT BIO" rows="3"  style="text-indent: 20px"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row mt-3"  *ngIf="info">
+    <div class="col-3" >
+      <img src="../assets/group.svg"  style="border-style: dotted; cursor: pointer;"  alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3; ">Passport Front</label>
+    </div>
+    <div class="col-3">
+      <img src="../assets/group.svg"  style="border-style: dotted;cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3;">Passport Back</label>
+    </div>
+
+    <div class="col-3">
+      <img src="../assets/group.svg"  style="border-style: dotted;cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3; ">Passport with Face</label>
+    </div>
+    <div class="col-3">
+      <img src="../assets/group.svg"  style="border-style: dotted;cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3;">Current date  Face</label>
+    </div>
+  </div>
+  <!-- <div class="row mt-3"  *ngIf="info"  >
+
+    <div class="col-3">
+      <img [src]="url1"  style="border-style: dotted; cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3; ">Passport Front</label>
+      <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+      <div class="post" style="text-align:left">
+         <input type="file"  formControlName="images" (change)="selectImage($event)">
+     </div>
+          </div>
+
+    <div class="col-3">
+      <img [src]="url2"  style="border-style: dotted; cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3;">Passport Back</label>
+    </div>
+    <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+    <div class="post" style="text-align:left">
+       <input type="file"  formControlName="images" (change)="selectImage($event)">
+   </div>
+
+
+    <div class="col-3">
+      <img [src]="url3"  style="border-style: dotted; cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3; ">Passport with Face</label>
+    </div>
+    <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+    <div class="post" style="text-align:left">
+       <input type="file"  formControlName="images" (change)="selectImage($event)">
+   </div>
+
+    <div class="col-3">
+      <img [src]="url4"  style="border-style: dotted; cursor: pointer;" alt="">
+      <label class="d-flex justify-content-center" style="color:#B366B3;">Current date  Face</label>
+      <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+      <div class="post" style="text-align:left">
+         <input type="file"  formControlName="images" (change)="selectImage($event)">
+     </div>
+    </div>
+  </div> -->
+<div class="row mt-3"  *ngIf="info" >
+<div class="col">
+  <div class="form-group d-flex justify-content-end">
+    <button class="btn">Save</button>
+
+  </div>
+</div>
+<div class="col">
+  <div class="form-group">
+
+    <button class="change">change password</button>
+  </div>
+</div>
+
+
+</div>
+
+<div class="form-group" *ngIf="soon">
+ <span>Coming Soon...</span>
+</div>
+
+<!-- Button trigger modal -->
+<div class="row  d-flex justify-content-end mt-4"  data-bs-toggle="modal" data-bs-target="#example" *ngIf="card">
+  <i class="bi bi-plus-circle-fill d-flex justify-content-end mt-3"  style="position: absolute;padding: 8px 10px; color: rgba(166, 94, 234, 0.856); margin-left: 60px;">
+    <label style="margin-top: -4px;"> Add New Card</label>  </i>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="margin-left: 150px;">Add New Card</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label style="margin-left: 63px;">Please Provide the following details for your card</label>
+      </div>
+      <form [formGroup]="form" (submit)="onsubmit()">
+
+        <div class="form-group" style="position: relative">
+          <div class="row" >
+            <div class="form-group" style="position: relative">
+              <i class="bi bi-credit-card-2-back"
+              style="position: absolute;padding: 7px 10px; color: rgba(166, 94, 234, 0.856); margin-left: 60px;"></i>
+              <input type="number" class="form-control"  placeholder="Card number" formControlName="number"
+              style="text-indent: 20px; width: 76%;
+            margin-left: 63px;">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="form-group" style="position: relative">
+          <i class="bi bi-person-circle"
+          style="position: absolute;padding: 9px 10px; color: rgba(166, 94, 234, 0.856);margin-left: 60px;"></i>
+          <input type="text" class="form-control"  placeholder="Card Holder Name" formControlName="name"
+        style="text-indent: 20px;    width: 76%;
+        margin-left: 63px;">
+        </div>
+      </div>
+      <div class="row mt-2" >
+        <div class="col cvv" >
+          <div class="form-group" style="position: relative">
+            <i class="bi bi-calendar"
+            style="position: absolute;padding: 8px 10px; color: rgba(166, 94, 234, 0.856);margin-left: 20px;"></i>
+            <input type="date" class="form-control"   placeholder="valid date" formControlName="date"
+            style="text-indent: 20px;
+          margin-left: 25px;">
+          </div>
+        </div>
+        <div class="col num">
+          <i class="bi bi-card-heading" style="position: absolute;padding: 8px 10px; color: rgba(166, 94, 234, 0.856);margin-left: 20px;"></i>
+          <input type="password" class="form-control"  placeholder="Cvv" formControlName="cvv"
+          style="text-indent: 20px;
+          margin-left: 25px;">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="col mt-3">
+          <div class="form-group d-flex justify-content-center">
+            <button class="btn" type="submit">post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+
+</div>
+
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row" style="background-color: white;">
+    <div class="row">
+        <label class="d-flex justify-content-center" style="font-weight:900;" >Leadership Board</label>
+    </div>
+    <div class="row mt-4">
+      <div class="col">
+        <div class="form-group d-flex justify-content-center">
+          <button class="btn active" id="b1">member</button>
+          <button class="btn" disabled >performer</button>
+        </div>
+    </div>
+  </div>
+  <div class="row mt-5" *ngFor="let item of test">
+    <div class="col-4" style="padding:0px 70px;" *ngIf="item.profile != null">
+      <img src="{{item.profile}}"  alt="" style="height: 60px;
+      width: 60px;
+      border-radius: 22px;">
+    </div>
+    
+  </div>
+</div>
+</div>
+
+
+

@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="row mt-4">
+      <div class="col">
+        <div class="form-group d-flex justify-content-center">
+          <button class="btn" disabled>Feeds</button>
+          <button class="btn active">Event</button>
+        </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <label> My Favourite:</label>
+  </div>
+  <div class="row m-5">
+    <div class="col-md-4" *ngFor="let item of test | paginate: { itemsPerPage: 10, currentPage: p }">
+      <div class="card p-3">
+        <img src="{{item.profile}}" class="card-img-top" alt="..." height="200">
+        <img src="{{item.coverThumb}}" class="logo">
+        <p class="name">{{item.name}}</p>
+        <div class="card-body">
+          <div>
+            <h5 class="card-title">Event Title</h5>
+            <p>{{item.createdAt}}</p>
+          </div>
+          <div>
+            <p style="color: purple;">Earning 500 startup <span style="color: black;" >(USD 250)</span></p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+          </div>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+
+    </div>
+    <pagination-controls (pageChange)="p=$event" class="float-right"></pagination-controls>
+  </div>
+</div>
+

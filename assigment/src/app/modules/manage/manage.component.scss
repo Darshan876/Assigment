@@ -1,0 +1,47 @@
+.info:hover
+ {
+  background: #B366B3 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #00000008;
+  border-radius: 6px;
+  opacity: 1;
+
+}
+a{
+  color: black;
+}
+
+a:hover{
+  color: white;
+}
+// i:hover{
+//   color:white;
+// }
+
+.btn{
+  width:160px;
+  height: 35px;
+  color: white;
+  background: #800080 0% 0% no-repeat padding-box;
+border: 1px solid #800080;
+border-radius: 30px;
+opacity: 1;
+}
+
+.change{
+  width:160px;
+  height: 35px;
+  color: black;
+  background:transparent;
+border: 1px solid #800080;
+border-radius: 30px;
+opacity: 1;
+}
+
+.cvv{
+ margin-left: 36px;
+}
+
+.num
+{
+  margin-right: 80px;
+}
