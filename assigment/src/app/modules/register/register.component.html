@@ -163,11 +163,9 @@
 
         <div class="mt-3">
           <i class="bi bi-flag" style="position: absolute;padding: 9px 10px; color: rgba(166, 94, 234, 0.856);"></i>
-          <select class="form-control" formControlName="countryId"  style="text-indent: 20px;">
+          <select class="form-control" formControlName="countryId"  style="text-indent: 20px;" (change)="city($event)">
             <option selected value=" ">Country</option>
-            <option value="India">{{ test1[0].name }}</option>
-            <option value="USA">USA</option>
-            <option value="UK">UK</option>
+            <option *ngFor="let country of countryData" [id]="country.id"  [value]="country.id">{{country.name}}</option>
           </select>
         </div>
         <div
@@ -184,9 +182,7 @@
           <i class="bi bi-geo-alt" style="position: absolute;padding: 9px 10px; color: rgba(166, 94, 234, 0.856);"></i>
           <select class="form-control" formControlName="cityId" style="text-indent: 20px;">
             <!-- <option selected value=""></option> -->
-            <option value="Ahmedabad">{{ test[0].name }}</option>
-            <option value="Baroda">Baroda</option>
-            <option value="Pune">Pune</option>
+            <option *ngFor="let city of cityData" [value]="city.id" [id]="city.id">{{city.name}}</option>
           </select>
         </div>
 
@@ -274,12 +270,13 @@
         </div>
 
         <div class="mt-3">
-          <button class="browse" (change)="educertificate($event)">
-            <label for="upload1">
+          <button class="browse" >
+            <label for="upload2">
               <input
+              (change)="onFileChanged($event)"
                 type="file"
                 aria-hidden="true"
-                id="upload1"
+                id="upload2"
                 accept="image/"
                 style="display: none"
               />
@@ -288,12 +285,13 @@
           </button>
           &nbsp; &nbsp;
 
-          <button class="browse" (change)="educertificate($event)">
-            <label for="upload1">
+          <button class="browse" >
+            <label for="upload3">
               <input
+              (change)="onFileChanged($event)"
                 type="file"
                 aria-hidden="true"
-                id="upload"
+                id="upload3"
                 accept="image/"
                 style="display: none"
               />

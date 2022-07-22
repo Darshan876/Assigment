@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
+// import { URLSearchParams } from 'url';
 
 
 @Component({
@@ -15,12 +16,14 @@ export class ManageComponent implements OnInit {
   card:boolean = true;
   info:boolean=false;
   soon:boolean=false;
+
   url1 : any;
   url2:any;
   url3:any;
   url4:any;
   msg = "";
   form!: FormGroup;
+  profileform!:FormGroup
   p:any;
 
   constructor(private auth: AuthService,private route:Router,private fb: FormBuilder) { }
@@ -35,73 +38,47 @@ export class ManageComponent implements OnInit {
       date: new FormControl('', [Validators.required]),
     })
 
-    // this.form = this.fb.group({
-    //   guid: new FormControl('', [Validators.required]),
-    //   muid: new FormControl('', [Validators.required]),
-    //   sid: new FormControl('', [Validators.required]),
-    //   payment_user_agent: new FormControl('', [Validators.required]),
-    //   time_on_page: new FormControl('', [Validators.required]),
-    // });
-
+    this.profileform = this.fb.group({
+      name:new FormControl('', [Validators.required]),
+      email:new FormControl('', [Validators.required]),
+      username:new FormControl('', [Validators.required]),
+      city:new FormControl('', [Validators.required]),
+      country:new FormControl('', [Validators.required]),
+      shortBio:new FormControl('', [Validators.required]),
+      dob:new FormControl('', [Validators.required])
+    })
     this.get_profile();
       this.get_post();
   }
-
-  // user_profile(){
-
-  //  this.auth.get_profileData(this.profile).subscribe(res=>{
-  //   console.log(res);
-  //   console.log("add successful");
-  //  },err=>{
-  //    alert("something wrong")
-  //  })
-
-  // }
 
 
   store : any;
   onsubmit() {
       console.log(this.form.value);
       let date = moment(this.form.value['date'])
+      alert("card upload successfully")
+  let body = new URLSearchParams()
+    body.set("key", "pk_test_51IUaEtKvww4b0ijcoNgwhZ9lrkyORD4dYLL0mry0nim9bmPnbuPA0mYZuKfMP9OveS9u4uH14awwEOCCopktw8Kw004075CoTi")
+    body.set("guid", "264ef4c9-a79d-4805-b746-77d88d03eac52ec5e1")
+    body.set('muid', 'bf20a9a4-d6b9-4bcd-8017-d3f2645ea8c52681fb')
+    body.set('sid','e9f1c810-a344-4233-a731-6a51785b029b92d235')
+    body.set('payment_user_agent','stripe.js/a928bb833;+stripe-js-v3/a928bb833')
+    body.set('time_on_page','16498')
+    body.set('card[name]', `${this.form.value.name}`)
+    body.set('card[number]', `${this.form.value.number}`)
+    body.set('card[cvc]', `${this.form.value.cvv}`)
+    body.set('card[exp_month]', `${date.format('MM')}`)
+    body.set('card[exp_year]', `${date.format('YY')}`)
 
-  //   let obj = {card:
-  //   {
-  //     name: this.form.value['name'],
-  //     number: this.form.value['number'],
-  //     cvc: this.form.value['cvv'],
-  //     exp_month: date.format('MM'),
-  //     exp_year:date.format('YY'),
-  //   }
-  //   key: 'pk_test_51IUaEtKvww4b0ijcoNgwhZ9lrkyORD4dYLL0mry0nim9bmPnbuPA0mYZuKfMP9OveS9u4uH14awwEOCCopktw8Kw004075CoTi'
-  // };
-  let obj: any = {}
-  obj['key'] = 'pk_test_51IUaEtKvww4b0ijcoNgwhZ9lrkyORD4dYLL0mry0nim9bmPnbuPA0mYZuKfMP9OveS9u4uH14awwEOCCopktw8Kw004075CoTi';
-  obj['guid'] = '264ef4c9-a79d-4805-b746-77d88d03eac52ec5e1';
-  obj['muid'] = 'bf20a9a4-d6b9-4bcd-8017-d3f2645ea8c52681fb';
-  obj['sid'] = 'e9f1c810-a344-4233-a731-6a51785b029b92d235';
-  obj['payment_user_agent'] = 'stripe.js/a928bb833;+stripe-js-v3/a928bb833';
-  obj['time_on_page'] = '16498';
-  obj['card'] = {}
 
-  obj['card']['name'] = this.form.value['name'];
-  obj['card']['number'] = this.form.value['number'];
-  obj['card']['cvc'] = this.form.value['cvv'];
-  obj['card']['exp_month'] = date.format('MM');
-  obj['card']['exp_year'] = date.format('YY');
-
-    this.auth.get_cardDetails(obj)
+    console.log(body);
+    this.auth.get_cardDetails(body)
       .subscribe((res : any) => {
         console.log("Res",res,res.id);
-        // this.auth.addCardToSystem(res.id).subscribe((data: any)=>{
-        //   console.log("cardRes", data);
-        // })
       }, (err : any) => {
           console.log(err);
           alert(err)
       });
-
-
-
   }
 
   test1 : any;
@@ -109,44 +86,31 @@ export class ManageComponent implements OnInit {
   get_profile() {
       this.auth.get_profileData(this.form).subscribe(res => {
           this.test1 = res;
-          console.log(this.test1.id);
+          console.log(this.test1.ID);
           console.log(res);
-//           this.test1?.forEach((element:any) => {
-//             console.log(element);
-// this.user=element?.name;
-//            });
-      }, (err) => {
-          // alert(err)
+          this.profileform.controls['name'].setValue(this.test1.name);
+          this.profileform.controls['email'].setValue(this.test1.email);
+          this.profileform.controls['username'].setValue(this.test1.username);
+          this.profileform.controls['city'].setValue(this.test1.city);
+          this.profileform.controls['country'].setValue(this.test1.country);
+          this.profileform.controls['dob'].setValue(this.test1.dob);
+          this.profileform.controls['shortBio'].setValue(this.test1.shortBio);
       })
   }
 
+onUpdate(){
+  console.log(
+    this.profileform.value
+  );
+  alert("successfully save")
 
-
-  // post_cardinfo(){
-  //   console.log(this.form.value);
-
-  //   this.auth.get_Addcarddetails(this.form.value).subscribe((res :{}) => {
-  //       console.log("btn signup called");
-  //       console.log(res);
-  //       this.route.navigate(['/home'])
-  //       alert("Registered successfully..!!")
-
-  //   }, (err : any) => {
-  //       console.log(err);
-  //      let a= JSON.stringify(this.form.getRawValue())
-  //      console.log(a);
-
-  //       alert(a)
-  //   });
-  // }
+}
 
 
 test : any;
   get_post() {
       this.auth.get_cardinfo(this.form).subscribe(res => {
           this.test = res;
-          // console.log(this.test);
-          // console.log(res);
       }, (err) => {
           // alert(err)
       })
@@ -158,12 +122,10 @@ test : any;
     let img = event.target.files;
     let imageformdata = new FormData();
     console.log("img",img);
-
       if (!img|| img.length == 0) {
           this.msg = 'You must select an image';
           return;
       }
-
       var mimeType = img[0].type;
       console.log("mime",mimeType);
 
@@ -171,7 +133,6 @@ test : any;
           this.msg = "Only images are supported";
           return;
       }
-
       var reader = new FileReader();
       reader.readAsDataURL(img[0]);
       reader.onload = (_event) => {
@@ -181,21 +142,9 @@ test : any;
           this.url3=reader.result;
           this.url4=reader.result;
       }
-
       imageformdata.delete('images')
       imageformdata.append('images',img[0])
-
-
-    //   this.auth.upload_Image(imageformdata).subscribe((res:any) => {
-    //     console.log(res);
-    //     this.imgattachment=res.result.attachmentId
-    //   },(err : any) => {
-    //     console.log(err);
-    // });
-
   }
-
-
 
   myCard(){
     this.card=true;

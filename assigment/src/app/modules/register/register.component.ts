@@ -8,22 +8,13 @@ import {AuthService} from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit {
 
     setprofileform !: FormGroup;
-    formData : any;
-    // country:any;
-    // place:any;
-
-    // isSignUp : boolean = false;
-    // isLogin : boolean = true;
-    // loginform !: FormGroup;
-    // signupform !: FormGroup;
+    formData! : FormData
+    formData1! : FormData
     conf : any;
 
     constructor(private auth : AuthService, private route : Router, private fb : FormBuilder) {}
 
     ngOnInit(): void {
-
-
-        // this.formData = new FormData();
         this.setprofileform = this.fb.group({
 
 
@@ -44,7 +35,6 @@ export class RegisterComponent implements OnInit {
             }),
             username: new FormControl('', [Validators.required]),
             name: new FormControl('', [Validators.required]),
-
             legalName: new FormControl('', [Validators.required]),
             dateOfBirth: new FormControl('', [Validators.required]),
             profileImage: new FormControl('', [Validators.required]),
@@ -53,39 +43,36 @@ export class RegisterComponent implements OnInit {
             referral_code: new FormControl('', [Validators.required]),
             cityId: new FormControl('', [Validators.required]),
             userType: new FormControl('', [Validators.required]),
-            state: new FormControl('', [Validators.required]),
+            // state: new FormControl('', [Validators.required]),
             countryId: new FormControl('', [Validators.required]),
-            selectedTopics: new FormControl('', [Validators.required]),
-            isAccept: new FormControl('', [Validators.required]),
-            deviceId: new FormControl('', [Validators.required])
+            selectedTopics: new FormControl('2,3,4', [Validators.required]),
+            isAccept: new FormControl('true', [Validators.required]),
+            // deviceId: new FormControl('', [Validators.required])
         });
         this.persons.forEach((person) => {
             this.setprofileform.addControl(person, new FormControl('', [Validators.required]));
         });
 
-        this.city();
         this.coutry();
-
     }
 
     imagePath : any;
     url:any= '';
   onSelectFile(event:any) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+    // if (event.target.files && event.target.files[0]) {
+    //   var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]);
+    //   reader.readAsDataURL(event.target.files[0]);
 
-      reader.onload = (event) => {
-        this.url = event.target?.result;
-      }
-    }
-  }
+    //   reader.onload = (event) => {
+    //     this.url = event.target?.result;
+    //   }
+    // }
+    console.log(event.target.files[0])
 
-    onFileChanged(event : any) {
-        console.log(event.target.files[0])
-        this.formData.delete('profileImage')
-        this.formData.append('profileImage', event.target.files[0])
+        let formData = new FormData();
+        formData.delete('file')
+        formData.append('file', event.target.files[0])
         const files = event.target.files;
         if (files.length === 0)
             return;
@@ -97,24 +84,60 @@ export class RegisterComponent implements OnInit {
         reader.onload = (_event) => {
             this.url = reader.result;
         };
-    }
+
+        this.auth.upload_Image(formData).subscribe((res:any) => {
+          console.log();
+
+          console.log(res);
+          this.profileimgattachment=res.result.attachmentId
+        })
+  }
+  profileimgattachment!:any
+
+    onFileChanged(event : any) {
+        console.log(event.target.files[0])
+
+        let formData = new FormData();
+        formData.delete('file')
+        formData.append('file', event.target.files[0])
+        const files = event.target.files;
+        if (files.length === 0)
+            return;
+
+
+        const reader = new FileReader();
+        this.imagePath = files;
+        reader.readAsDataURL(files[0]);
+        reader.onload = (_event) => {
+            this.url = reader.result;
+        };
+
+        this.auth.upload_Image(formData).subscribe((res:any) => {
+          console.log();
+
+          console.log(res);
+          this.docattachment=res.result.attachmentId
+        })
+      }
 
     educertifile : any;
     trainingfile : any;
 
+    docattachment:any
 
-    educertificate(event : any) {
+    document(event : any) {
         this.educertifile = <File> event.target.files[0];
-        this.formData.delete('degreeUpload')
-        this.formData.append('degreeUpload', event.target.files[0])
+        this.formData1.delete('file')
+        this.formData1.append('file', event.target.files[0])
+
+        this.auth.upload_Image(this.formData1).subscribe((res:any) => {
+          console.log();
+
+          console.log(res);
+          this.docattachment=res.result.attachmentId
+        })
     }
 
-    traningcertificate(event : any) {
-        this.trainingfile = <File> event.target.files[0];
-        this.formData.delete('certificateUpload')
-        this.formData.append('certificateUpload', event.target.files[0])
-        console.log(this.trainingfile);
-    }
 
     designations = ['Juniar', 'Intermidiate', 'Senior', 'Lead'];
     persons = ['Welder', 'Fitter', 'Wigger', 'Sactfolder'];
@@ -124,67 +147,22 @@ export class RegisterComponent implements OnInit {
         this.skillSets[person] = designation;
     }
 
-    // submitData() {
-
-    // if(this.setprofileform.invalid){
-    //     this.setprofileform.markAllAsTouched();
-    //     return;
-    //     }
-
-    // let data = this.setprofileform.value;
-
-
-    // // data.address = {};
-    // // data.address['addressLine1'] = this.setprofileform.value.addressLine1;
-    // // data.address['addressLine2'] = this.setprofileform.value.addressLine2;
-
-    // // data.address['postalCode'] = this.setprofileform.value.postalCode;
-
-    // // data.address['city'] = this.setprofileform.value.city;
-
-    // // data.address['state'] = this.setprofileform.value.state;
-    // // data.address['LGA'] = this.setprofileform.value.LGA;
-    // // data.address['country'] = this.setprofileform.value.country;
-    // // data.address['DailyWages'] = this.setprofileform.value.DailyWages;
-
-    // // data.skillSetsAndTrade = {};
-    // // data.skillSetsAndTrade["skillSets"] = {};
-    // // Object.keys(this.skillSets).forEach((key) => {
-    // //   data.skillSetsAndTrade["skillSets"][key] = this.skillSets[key];
-    // // });
-
-    // // this.formData.append('data',JSON.stringify(data))
-
-
-    //    this.auth.btn_image(this.setprofileform)
-    // .subscribe(res=>{
-    //     console.log(res);
-
-    //     this.formData=null;
-    //     // console.log(res);
-    //     alert("Set profile Successfully!!")
-    // },(err)=>{
-    //     this.formData=null;
-    //     console.log(err)
-    //     alert(err.error.message);
-    //     // console.log(err);
-    // })
-    // }
-
-    test : any;
-    test1 : any;
-    city() {
-        this.auth.get_city(this.setprofileform.value).subscribe(res => {
-            this.test = res;
+    countryData:any=[];
+    cityData:any =[]
+    city(e:any) {
+      console.log(e)
+        this.auth.get_city(e.target.value).subscribe(res => {
+          console.log(res,'for city')
+            this.cityData = res;
         }, (err) => {
             alert(err)
         })
     }
 
     coutry() {
-        this.auth.get_contry(this.setprofileform.value).subscribe(res => {
-            console.log("con= ", res);
-            this.test1 = res;
+        this.auth.get_contry().subscribe(res => {
+            console.log("fff ", res);
+            this.countryData = res;
         }, (err) => {
             console.log(err);
             alert(err)
@@ -194,78 +172,37 @@ export class RegisterComponent implements OnInit {
 
     store : any;
     signUp() {
-        console.log(this.setprofileform);
-        // if(this.signupform){
-        // this.signupform.markAllAsTouched();
+        // console.log(this.setprofileform);
+        let a=this.setprofileform.value;
+        a.docattachment = this.docattachment
+        a.profileimgattachment = this.profileimgattachment
+        // if(this.setprofileform){
+        // this.setprofileform.markAllAsTouched();
         // return;
         // }
-
-        this.auth.btn_signup(this.setprofileform.value)
+        this.auth.btn_signup(a)
         .subscribe((res : any) => {
             console.log("btn signup called");
-
             this.store = res;
             console.log(res);
             localStorage.setItem('Token', JSON.stringify(this.store.token));
-                    // this.route.navigateByUrl('/home');
             if(res.code == 200){
               this.route.navigate(['/login'])
             }
-            // localStorage.setItem('form', JSON.stringify(this.store))
-            // let data = localStorage.getItem('form')
-            // console.log("data = " + data);
-
-            // console.log(data);
-            // this.isLogin=true;
-            // this.isSignUp=false;
-            // console.log(res);
             alert("Registered successfully..!!")
+        }
 
-        }, (err : any) => {
-            console.log(err);
-            alert(err)
-        });
-
+        );
     }
     user:any;
-    // signUp() {
-    //   if (this.setprofileform) {
-    //     this.auth.btn_signup(this.setprofileform.value).subscribe((res) => {
-    //       if (res.success) {
-    //         console.log(res);
-    //         this.user = res;
-    //         localStorage.setItem('Token', JSON.stringify(this.user.token));
-    //         this.route.navigateByUrl('/home');
-    //       } else {
-    //         alert('please try again');
-    //       }
-    //     });
-    //   }
-    // }
-
     signImg() {
-        // console.log(this.signupform)
-        // if(this.signupform.invalid){
-        // this.signupform.markAllAsTouched();
-        // return;
-        // }
-
         this.auth.btn_image(this.setprofileform.value).subscribe(res => {
-            // this.isLogin = true;
-            // this.isSignUp = false;
-            // console.log(res);
             alert("Registered successfully..!!")
-
         }, (err) => { // console.log(err);
             alert(err.error.error)
         })
 
     }
-
-    // signup() {
-    //     this.isSignUp = true;
-    //     this.isLogin = false;
-    // }
 
     change() {
         this.route.navigateByUrl('/login');

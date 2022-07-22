@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {samePass} from 'src/app/pass-validation';
 import {AuthService} from 'src/app/services/auth.service';
 
 @Component({selector: 'app-header', templateUrl: './header.component.html', styleUrls: ['./header.component.scss']})
-
-
 
 export class HeaderComponent implements OnInit {
 
@@ -19,7 +16,7 @@ export class HeaderComponent implements OnInit {
     videopath:any;
     imgattachment:any;
     vidattachment:any;
-
+    postclose:boolean=true;
 
     constructor(private auth : AuthService, private route : Router, private fb : FormBuilder) {
     }
@@ -29,8 +26,8 @@ export class HeaderComponent implements OnInit {
         this.proreform = this.fb.group({
             description: new FormControl('', [Validators.required]),
             type: new FormControl('', [Validators.required]),
-            isVideoURL: new FormControl('', [Validators.required]),
-            videoURL: new FormControl('', [Validators.required]),
+            isVideoURL: new FormControl('null', [Validators.required]),
+            // videoURL: new FormControl('', [Validators.required]),
             nonSubscriberView: new FormControl('', [Validators.required]),
             images: new FormControl('', [Validators.required])
         });
@@ -42,11 +39,11 @@ export class HeaderComponent implements OnInit {
       let video = event.target.files;
       let videoformData = new FormData();
       console.log("video",video);
-      
+
         if (!video||video.length==0) {
             this.msg = 'You must select an video';
             return;
-        } 
+        }
 
         var mimeType = video[0].type;
         if (mimeType.match(/video\/*/) == null) {
@@ -61,10 +58,10 @@ export class HeaderComponent implements OnInit {
             this.video = reader.result;
         }
 
-        this.formData.delete('isVideoURL')
-        this.formData.append('isVideoURL',video[0])
+        // this.formData.delete('isVideoURL')
+        // this.formData.append('isVideoURL',video[0])
 
-        
+
         // this.formData.delete('file')
         // this.formData.append('file',video[0])
 
@@ -76,9 +73,12 @@ export class HeaderComponent implements OnInit {
         });
 
     }
+    images1!:File
     selectImage(event : any) {
 
       let img = event.target.files;
+      this.images1 = img[0]
+      // this.proreform.controls['images'].setValue(img[0])
       let imageformdata = new FormData();
       console.log("img",img);
 
@@ -102,16 +102,20 @@ export class HeaderComponent implements OnInit {
             this.url = reader.result;
         }
 
-        imageformdata.delete('images')
-        imageformdata.append('images',img[0])
+        imageformdata.delete('file')
+        imageformdata.append('file',img[0])
 
 
         this.auth.upload_Image(imageformdata).subscribe((res:any) => {
+          console.log();
+
           console.log(res);
           this.imgattachment=res.result.attachmentId
-        },(err : any) => {
-          console.log(err);
-      });
+        }
+      //   ,(err : any) => {
+      //     console.log(err);
+      // }
+      );
 
     }
 
@@ -121,12 +125,15 @@ export class HeaderComponent implements OnInit {
         console.log(this.proreform.value);
 
         let formValue = this.proreform.value;
+        // formValue.images = this.images1
+        formValue['images[0]'] = this.images1
         Object.keys(formValue).forEach(key=>{
           this.formData.delete(key);
           this.formData.append(key,formValue[key]);
         })
-        this.formData.append("img[0]",this.imgattachment);
-        this.formData.append("video[0]",this.vidattachment);
+        this.formData.delete('images')
+        this.formData.append("id",this.imgattachment);
+        // this.formData.append("video[0]",this.vidattachment);
 
         // this.auth.Post_createPost(this.formData.value && this.proreform.value).subscribe((res) => {
         //   if (res.success) {
@@ -146,7 +153,7 @@ export class HeaderComponent implements OnInit {
             console.log("btn signup called");
             console.log(res);
             this.route.navigate(['/home'])
-            alert("Registered successfully..!!")
+            alert("Post successfully..!!")
 
         }, (err : any) => {
             console.log(err);
@@ -155,6 +162,8 @@ export class HeaderComponent implements OnInit {
 
             alert(a)
         });
+        this.postclose=false;
+        location.reload();
     }
 
 }

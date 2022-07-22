@@ -50,11 +50,11 @@ set_profile(formData: any) {
   }
 
   get_city(data:any){
-    return this.http.get<any>('https://api.dev.starclusive.com/api/countries/city_list/268/all',data);
+    return this.http.get<any>('https://api.dev.starclusive.com/api/countries/city_list/'+data+'/all');
   }
 
-  get_contry(data:any){
-    return this.http.get<any>('https://api.dev.starclusive.com/api//countries/country_list/all',data);
+  get_contry(){
+    return this.http.get<any>('https://api.dev.starclusive.com/api//countries/country_list/all');
   }
 
 
@@ -66,7 +66,7 @@ set_profile(formData: any) {
     });
 
 
-    return this.http.get<any>('https://api.dev.starclusive.com/api/feed/newsFeed?page=1&limit=10',{headers}).pipe(map((res:any)=>{
+    return this.http.get<any>(`https://api.dev.starclusive.com/api/feed/newsFeed`,{headers}).pipe(map((res:any)=>{
       console.log(res);
       return res;
     }))
@@ -74,7 +74,28 @@ set_profile(formData: any) {
 
 
 public upload_Image(data:any){
-  return this.http.post<any>('https://api.dev.starclusive.com/api/media/upload',data);
+  let headersObj = {
+    // "Accept": "application/json, text/plain, */*",
+    // "Accept-Language": "en-US,en;q=0.9",
+    // "Connection": "keep-alive",
+    // "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundarymtsZA6nRJBj3yWYu",
+    // "Access-Control-Allow-Origin":"*",
+    // "Origin":"https://pwa.dev.starclusive.com",
+    // "Origin": "https",
+    // "Referer": "https",
+    // "Sec-Fetch-Dest": "empty",
+    // "Sec-Fetch-Mode": "cors",
+    // "Sec-Fetch-Site": "same-site",
+    // "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    "authorization": "Bearer " + localStorage.getItem('token'),
+    // "sec-ch-ua": "\".Not/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+    // "sec-ch-ua-mobile": "?0",
+    // "sec-ch-ua-platform": "\"Linux\"",
+    // "timeout": "3600000"
+}
+  let headers=new HttpHeaders(headersObj);
+  console.log(data);
+  return this.http.post<any>('https://api.dev.starclusive.com/api/media/upload',data,{headers});
 }
 
 
@@ -112,7 +133,9 @@ public upload_Image(data:any){
       // "Sec-Fetch-Mode": "cors",
       // "Sec-Fetch-Site": "same-site",
       // "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-      "authorization": "Bearer " + localStorage.getItem('token'),
+      "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk5LCJpYXQiOjE2NTU4OTE5ODR9.mDUQPLnzb-71t-HxN_CfvLoqnZBof5ctIElDi7fFOwo",
+    // "authorization": "Bearer " + localStorage.getItem('token'),
+
       // "sec-ch-ua": "\".Not/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
       // "sec-ch-ua-mobile": "?0",
       // "sec-ch-ua-platform": "\"Linux\"",
@@ -183,16 +206,16 @@ get_cardDetails(data:any){
     "accept": "application/json",
     "accept-language": "en-US,en;q=0.9",
     "content-Type": "application/x-www-form-urlencoded",
-    'authorization':"Bearer " + localStorage.getItem('token'),
-    "origin":"https://js.stripe.com",
-    "referer": "https://js.stripe.com/",
-    "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103""',
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": "Linux",
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-site",
-    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    // 'authorization':"Bearer " + localStorage.getItem('token'),
+    // "origin":"https://js.stripe.com",
+    // "referer": "https://js.stripe.com/",
+    // "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103""',
+    // "sec-ch-ua-mobile": "?0",
+    // "sec-ch-ua-platform": "Linux",
+    // "sec-fetch-dest": "empty",
+    // "sec-fetch-mode": "cors",
+    // "sec-fetch-site": "same-site",
+    // "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
 }
   let headers=new HttpHeaders(headersObj);
   return this.http.post<any>('https://api.stripe.com/v1/tokens',data, {headers});

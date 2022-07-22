@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HomeComponent implements OnInit {
   post !: FormGroup;
   activePage:number = 0;
-  p:any;
+  p:any = 1
   displayActivePage(activePageNumber:number){
     this.activePage = activePageNumber
   }
@@ -39,24 +39,11 @@ name:any;
   test1 : any;
 
   get_post() {
-      this.auth.create_post(this.post).subscribe(res => {
+      this.auth.create_post(this.p).subscribe(res => {
           this.test = res.result.result;
           console.log(this.test);
           console.log(res.result.result);
 
-
-//   res.result.forEach(element=>{
-// this.name=element.name;
-//   });
-
-  // res.test?.forEach(element =>{
-  //   element.messages?.forEach(y=>{
-  //     this.time = y.createdAt;
-  //   })
-  // });
-
-      }, (err) => {
-          // alert(err)
       })
   }
 
