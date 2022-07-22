@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
     videopath:any;
     imgattachment:any;
     vidattachment:any;
-    postclose:boolean=true;
+
 
     constructor(private auth : AuthService, private route : Router, private fb : FormBuilder) {
     }
@@ -162,8 +162,6 @@ export class HeaderComponent implements OnInit {
 
             alert(a)
         });
-        this.postclose=false;
-        location.reload();
     }
 
 }
