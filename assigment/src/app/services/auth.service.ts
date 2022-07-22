@@ -14,7 +14,26 @@ set_profile(formData: any) {
 
  btn_signup(data:any){
 
-    return this.http.post<any>('https://api.dev.starclusive.com/api/user/sign-up',data).pipe(map((res:any)=>{
+  let headersObj = {
+    "Accept": "application/json",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    // "Access-Control-Allow-Origin":"*",
+    "Origin":"https://pwa.dev.starclusive.com",
+    "Referer": "https://pwa.dev.starclusive.com/",
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-site",
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    // "authorization": "Bearer " + localStorage.getItem('token'),
+    "sec-ch-ua": "\".Not/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Linux\"",
+    // "timeout": "3600000"
+}
+let headers=new HttpHeaders(headersObj);
+    return this.http.post<any>('https://api.dev.starclusive.com/api/user/sign-up',data, {headers}).pipe(map((res:any)=>{
       console.log(res);
       return res;
     }));

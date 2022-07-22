@@ -16,20 +16,18 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit(): void {
         this.setprofileform = this.fb.group({
-
-
             email: new FormControl('', {
                 validators: [Validators.required, Validators.email]
             }),
             password: new FormControl('', {
                 validators: [Validators.required, Validators.minLength(8)]
             }),
-            fullName: new FormControl('', {
-                validators: [Validators.required]
-            }),
-            mobileNo: new FormControl('', {
-                validators: [Validators.required, Validators.min(1000000000), Validators.max(9999999999),]
-            }),
+            // fullName: new FormControl('', {
+            //     validators: [Validators.required]
+            // }),
+            // mobileNo: new FormControl('', {
+            //     validators: [Validators.required, Validators.min(1000000000), Validators.max(9999999999),]
+            // }),
             confirm_password: new FormControl('', {
                 validators: [Validators.required]
             }),
@@ -37,20 +35,17 @@ export class RegisterComponent implements OnInit {
             name: new FormControl('', [Validators.required]),
             legalName: new FormControl('', [Validators.required]),
             dateOfBirth: new FormControl('', [Validators.required]),
-            profileImage: new FormControl('', [Validators.required]),
-            coverImage: new FormControl('', [Validators.required]),
-            postalCode: new FormControl('', [Validators.required, Validators.min(100000), Validators.max(999999)]),
+            // profileImage: new FormControl('', [Validators.required]),
+            // coverImage: new FormControl('', [Validators.required]),
+            // postalCode: new FormControl('', [Validators.required, Validators.min(100000), Validators.max(999999)]),
             referral_code: new FormControl('', [Validators.required]),
             cityId: new FormControl('', [Validators.required]),
-            userType: new FormControl('', [Validators.required]),
+            userType: new FormControl('performer', [Validators.required]),
             // state: new FormControl('', [Validators.required]),
             countryId: new FormControl('', [Validators.required]),
-            selectedTopics: new FormControl('2,3,4', [Validators.required]),
+            selectedTopics: new FormControl('3,4,5', [Validators.required]),
             isAccept: new FormControl('true', [Validators.required]),
             // deviceId: new FormControl('', [Validators.required])
-        });
-        this.persons.forEach((person) => {
-            this.setprofileform.addControl(person, new FormControl('', [Validators.required]));
         });
 
         this.coutry();
@@ -139,13 +134,9 @@ export class RegisterComponent implements OnInit {
     }
 
 
-    designations = ['Juniar', 'Intermidiate', 'Senior', 'Lead'];
-    persons = ['Welder', 'Fitter', 'Wigger', 'Sactfolder'];
-    skillSets : any = {};
 
-    changeSelection(person : any, designation : any, event : any) {
-        this.skillSets[person] = designation;
-    }
+
+
 
     countryData:any=[];
     cityData:any =[]
