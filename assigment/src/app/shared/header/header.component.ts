@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
     imgattachment:any;
     vidattachment:any;
 
-
     constructor(private auth : AuthService, private route : Router, private fb : FormBuilder) {
     }
 
@@ -162,6 +161,8 @@ export class HeaderComponent implements OnInit {
 
             alert(a)
         });
+
+        // location.reload()
     }
 
 }

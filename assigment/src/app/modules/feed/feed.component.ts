@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class FeedComponent implements OnInit {
   post !: FormGroup;
-
+  
   constructor(private auth : AuthService, private route : Router, private fb : FormBuilder) { }
 
   ngOnInit(): void {

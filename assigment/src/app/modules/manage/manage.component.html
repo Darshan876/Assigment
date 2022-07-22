@@ -154,7 +154,6 @@
 <div class="row  d-flex justify-content-end mt-4"  data-bs-toggle="modal" data-bs-target="#example" *ngIf="card">
   <i class="bi bi-plus-circle-fill d-flex justify-content-end mt-3"  style="position: absolute;padding: 8px 10px; color: rgba(166, 94, 234, 0.856); margin-left: 60px;">
     <label style="margin-top: -4px;"> Add New Card</label>  </i>
-
 </div>
 
 <!-- Modal -->
@@ -175,9 +174,9 @@
             <div class="form-group" style="position: relative">
               <i class="bi bi-credit-card-2-back"
               style="position: absolute;padding: 7px 10px; color: rgba(166, 94, 234, 0.856); margin-left: 60px;"></i>
-              <input type="number" class="form-control"  placeholder="Card number" formControlName="number"
+              <input type="number" class="form-control"  placeholder="Card number"  formControlName="number"
               style="text-indent: 20px; width: 76%;
-            margin-left: 63px;">
+            margin-left: 63px;" onKeyPress="if(this.value.length==16) return false;">
         </div>
       </div>
       <div class="row mt-2">

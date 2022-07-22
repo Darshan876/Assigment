@@ -79,6 +79,14 @@ export class ManageComponent implements OnInit {
           console.log(err);
           alert(err)
       });
+
+      // this.auth.get_cardToken(body)
+      // .subscribe((res : any) => {
+      //   console.log("Res",res,res.id);
+      // }, (err : any) => {
+      //     console.log(err);
+      //     alert(err)
+      // });
   }
 
   test1 : any;

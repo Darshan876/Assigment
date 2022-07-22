@@ -22,12 +22,6 @@ export class RegisterComponent implements OnInit {
             password: new FormControl('', {
                 validators: [Validators.required, Validators.minLength(8)]
             }),
-            // fullName: new FormControl('', {
-            //     validators: [Validators.required]
-            // }),
-            // mobileNo: new FormControl('', {
-            //     validators: [Validators.required, Validators.min(1000000000), Validators.max(9999999999),]
-            // }),
             confirm_password: new FormControl('', {
                 validators: [Validators.required]
             }),
@@ -35,17 +29,12 @@ export class RegisterComponent implements OnInit {
             name: new FormControl('', [Validators.required]),
             legalName: new FormControl('', [Validators.required]),
             dateOfBirth: new FormControl('', [Validators.required]),
-            // profileImage: new FormControl('', [Validators.required]),
-            // coverImage: new FormControl('', [Validators.required]),
-            // postalCode: new FormControl('', [Validators.required, Validators.min(100000), Validators.max(999999)]),
             referral_code: new FormControl('', [Validators.required]),
             cityId: new FormControl('', [Validators.required]),
             userType: new FormControl('performer', [Validators.required]),
-            // state: new FormControl('', [Validators.required]),
             countryId: new FormControl('', [Validators.required]),
             selectedTopics: new FormControl('3,4,5', [Validators.required]),
             isAccept: new FormControl('true', [Validators.required]),
-            // deviceId: new FormControl('', [Validators.required])
         });
 
         this.coutry();
@@ -71,15 +60,12 @@ export class RegisterComponent implements OnInit {
         const files = event.target.files;
         if (files.length === 0)
             return;
-
-
         const reader = new FileReader();
         this.imagePath = files;
         reader.readAsDataURL(files[0]);
         reader.onload = (_event) => {
             this.url = reader.result;
         };
-
         this.auth.upload_Image(formData).subscribe((res:any) => {
           console.log();
 
@@ -88,25 +74,20 @@ export class RegisterComponent implements OnInit {
         })
   }
   profileimgattachment!:any
-
     onFileChanged(event : any) {
         console.log(event.target.files[0])
-
         let formData = new FormData();
         formData.delete('file')
         formData.append('file', event.target.files[0])
         const files = event.target.files;
         if (files.length === 0)
-            return;
-
-
+        return;
         const reader = new FileReader();
         this.imagePath = files;
         reader.readAsDataURL(files[0]);
         reader.onload = (_event) => {
             this.url = reader.result;
         };
-
         this.auth.upload_Image(formData).subscribe((res:any) => {
           console.log();
 
@@ -117,14 +98,20 @@ export class RegisterComponent implements OnInit {
 
     educertifile : any;
     trainingfile : any;
-
     docattachment:any
-
     document(event : any) {
         this.educertifile = <File> event.target.files[0];
         this.formData1.delete('file')
         this.formData1.append('file', event.target.files[0])
-
+        const files = event.target.files;
+        if (files.length === 0)
+        return;
+        const reader = new FileReader();
+        this.imagePath = files;
+        reader.readAsDataURL(files[0]);
+        reader.onload = (_event) => {
+            this.url = reader.result;
+        };
         this.auth.upload_Image(this.formData1).subscribe((res:any) => {
           console.log();
 
@@ -132,12 +119,6 @@ export class RegisterComponent implements OnInit {
           this.docattachment=res.result.attachmentId
         })
     }
-
-
-
-
-
-
     countryData:any=[];
     cityData:any =[]
     city(e:any) {
@@ -158,7 +139,6 @@ export class RegisterComponent implements OnInit {
             console.log(err);
             alert(err)
         })
-
     }
 
     store : any;
@@ -192,11 +172,9 @@ export class RegisterComponent implements OnInit {
         }, (err) => { // console.log(err);
             alert(err.error.error)
         })
-
     }
 
     change() {
         this.route.navigateByUrl('/login');
-
     }
 }
